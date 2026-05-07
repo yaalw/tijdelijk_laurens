@@ -581,17 +581,21 @@
     text-align: center;
     font-size: 9.5px;
     font-weight: 600;
-    color: var(--fg-2);
-    border-bottom: 0;
-    padding: 8px 0 2px;
-    letter-spacing: 0.08em;
+    color: var(--fg-mute);
+    padding: 0 0 4px;
+    letter-spacing: 0.1em;
+    border-bottom: 1px solid var(--border);
   }
   .seg-table thead tr.grouphead th:nth-child(1),
   .seg-table thead tr.grouphead th:nth-child(2) {
     border: 0;
   }
-  .seg-table .group-l { border-left: 1px solid var(--border); padding-left: 8px !important; }
-  .seg-table tbody td.group-l, .seg-table tfoot td.group-l { padding-left: 8px; }
+  .seg-table thead tr.grouphead + tr th {
+    padding-top: 6px;
+  }
+  /* Subtle vertical group separators — only on the first numeric col of each group */
+  .seg-table .group-l { padding-left: 14px !important; }
+  .seg-table tbody td.group-l, .seg-table tfoot td.group-l { padding-left: 14px; }
   .seg-table tbody tr {
     border-bottom: 1px solid var(--border);
     transition: background .12s ease;
@@ -809,7 +813,7 @@ const NUM = new Intl.NumberFormat("nl-NL");
 
 function eurCompact(v) {
   if (!v) return "€ 0";
-  if (v >= 1e6) return "€ " + (v / 1e6).toLocaleString("nl-NL", { maximumFractionDigits: 1 }) + "M";
+  if (v >= 1e6) return "€ " + (v / 1e6).toLocaleString("nl-NL", { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + "M";
   if (v >= 1e3) return "€ " + Math.round(v / 1e3).toLocaleString("nl-NL") + "k";
   return EUR_FULL.format(v);
 }
